@@ -1,0 +1,123 @@
+{
+    "id": "community.kisskh",
+    "version": "0.0.1",
+    "name": "kisskh by dexter21767",
+    "description": "Asian drama over https, by Dexter21767",
+    "logo": "https://kisskh.me/assets/icons/icon-192x192.png",
+    "background": "https://github.com/Stremio/stremio-art/raw/main/originals/reiphantomhive1.png",
+    "contactEmail": "ahmidiyasser@gmail.com",
+    "catalogs": [
+        
+        {
+            "type": "series",
+            "id": "1",
+            "name": "series",
+            "extra": [ {"name": "search", "isRequired": true} ]
+        },
+        {
+            "type": "movie",
+            "id": "2",
+            "name": "movie",
+            "extra": [ {"name": "search", "isRequired": true} ]
+        },
+        {
+            "type": "anime",
+            "id": "3",
+            "name": "anime",
+            "extra": [ {"name": "search", "isRequired": true} ]
+        },
+        {
+            "type": "series",
+            "id": "4",
+            "name": "series - hollywood",
+            "extra": [ {"name": "search", "isRequired": true} ]
+        },
+        {
+            "type": "movie",
+            "id": "type=2&status=1",
+            "name": "movie Ongoing",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
+            ]
+        },
+        {
+            "type": "movie",
+            "id": "type=2&status=2",
+            "name": "movie Completed",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
+            ]
+        },
+        {
+            "type": "series",
+            "id": "type=2&status=1",
+            "name": "series Ongoing",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+            ]
+        },
+        {
+            "type": "series",
+            "id": "type=2&status=2",
+            "name": "series Completed",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+            ]
+        },
+        {
+            "type": "anime",
+            "id": "type=2&status=1",
+            "name": "anime Ongoing",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions","Chinese","Japanese"] }
+            ]
+        },
+        {
+            "type": "anime",
+            "id": "type=2&status=2",
+            "name": "anime Completed",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]},
+                { "name": "genre","isRequired": true, "options": ["All Regions","Chinese","Japanese"] }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "name": "stream",
+            "types": [
+                "movie",
+                "series",
+                "anime"
+            ],
+            "idPrefixes": [
+                "kisskh:"
+            ]
+        },
+        {
+            "name": "meta",
+            "types": [
+                "movie",
+                "series",
+                "anime"
+            ],
+            "idPrefixes": [
+                "kisskh:"
+            ]
+        }
+    ],
+    "types": [
+        "movie",
+        "series",
+        "anime"
+    ],
+    "behaviorHints": {
+        "configurable": false,
+        "configurationRequired": false
+    }
+}
