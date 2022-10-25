@@ -37,84 +37,103 @@ async function request(url, header) {
 }
 
 async function getsubtitles(id) {
-    let cached = subsCache.get(id);
-    if (cached) {
-        console.log('cached main', id, cached);
-        return cached
-    } else {
-        url = `${host}/api/Sub/${id}`;
-        let subs = (await request(url)).data;
-        let subtitles = [];
-        for (let i = 0; i < subs.length; i++) {
-            subtitles.push({
-                id: subs[i].land + i,
-                url: subs[i].src,
-                lang: subs[i].label
-            });
-        };
-        if (subtitles) subsCache.set(id, subtitles);
-        return subtitles;
+    try {
+        let cached = subsCache.get(id);
+        if (cached) {
+            console.log('cached main', id, cached);
+            return cached
+        } else {
+            url = `${host}/api/Sub/${id}`;
+            let response = (await request(url));
+            if (!response || !response.data) throw "error accessing url"
+            subs = response.data;
+            let subtitles = [];
+            for (let i = 0; i < subs.length; i++) {
+                subtitles.push({
+                    id: subs[i].land + i,
+                    url: subs[i].src,
+                    lang: subs[i].label
+                });
+            };
+            if (subtitles) subsCache.set(id, subtitles);
+            return subtitles;
+        }
+    } catch (e) {
+        console.error(e)
     }
 }
 
 async function stream(type, meta_id) {
-    var res;
-    var id = meta_id.split(":")[1];
-    let cached = StreamCache.get(id);
-    if (cached) {
-        console.log('cached main', id, cached);
-        res = cached
-    } else {
-        var url = `${host}/api/DramaList/Episode/${id}.png?err=false&ts=&time=`;
-        console.log('url', url)
+    try {
+        var res;
+        var id = meta_id.split(":")[1];
+        let cached = StreamCache.get(id);
+        if (cached) {
+            console.log('cached main', id, cached);
+            res = cached
+        } else {
+            var url = `${host}/api/DramaList/Episode/${id}.png?err=false&ts=&time=`;
+            console.log('url', url)
 
-        res = (await request(url)).data;
-        if (res) StreamCache.set(id, res);
+            let response = (await request(url));
+            if (!response || !response.data) throw "error accessing url"
+            res = response.data;
+            if (res) StreamCache.set(id, res);
+        }
+
+        let subs = await getsubtitles(id);
+
+        des = res.Video.split(".")
+        let streams = [{ url: res.Video, name: "kisskh", description: des[des.length - 2], behaviorHints: { notWebReady: true, } }]
+        streams.push({ externalUrl: res.ThirdParty, name: "external", description: res.ThirdParty.split('/')[2] })
+        if (subs) streams[0].subtitles = subs
+        console.log(streams);
+        return streams;
+    } catch (e) {
+        console.error(e)
     }
-
-    let subs = await getsubtitles(id);
-
-    des = res.Video.split(".")
-    let streams = [{ url: res.Video, name: "kisskh", description: des[des.length - 2], behaviorHints: { notWebReady: true, } }]
-    streams.push({ externalUrl: res.ThirdParty, name: "external", description: res.ThirdParty.split('/')[2] })
-    if (subs) streams[0].subtitles = subs
-    console.log(streams);
-    return streams;
 
 }
 
 async function meta(type, meta_id) {
-    let cached = MetaCache.get(meta_id);
-    if (cached) {
-        console.log('cached main', meta_id, cached);
-        return cached
-    } else {
-        var id = meta_id.split(":")[1];
-        url = `${host}/api/DramaList/Drama/${id}?isq=true`
-        let res = (await request(url)).data;
-        const videos = []
-        for (let i = 0; i < res.episodesCount; i++) {
-            ep = res.episodes[i]
-            videos.push({ id: "kisskh:" + ep.id, title: `episode ${ep.number}`, season: "1", released: res.releaseDate, episode: ep.number })
-        }
-        metaObj = {
-            country: res.country,
-            description: res.description,
-            id: "kisskh:" + res.id,
-            released: res.releaseDate,
-            status: res.status,
-            poster: res.thumbnail,
-            background: res.thumbnail,
-            name: res.title,
-        }
-        if (!res.episodesCount || res.episodesCount == 1) {
-            metaObj.type == "movie"
+    try {
+        let cached = MetaCache.get(meta_id);
+        if (cached) {
+            console.log('cached main', meta_id, cached);
+            return cached
         } else {
-            metaObj.type = "series"
-            metaObj.videos = videos
+            var id = meta_id.split(":")[1];
+            url = `${host}/api/DramaList/Drama/${id}?isq=true`
+            let response = (await request(url));
+            if (!response || !response.data) throw "error accessing url"
+            res = response.data;
+
+            const videos = []
+            for (let i = 0; i < res.episodesCount; i++) {
+                ep = res.episodes[i]
+                videos.push({ id: "kisskh:" + ep.id, title: `episode ${ep.number}`, season: "1", released: res.releaseDate, episode: ep.number })
+            }
+            metaObj = {
+                country: res.country,
+                description: res.description,
+                id: "kisskh:" + res.id,
+                released: res.releaseDate,
+                status: res.status,
+                poster: res.thumbnail,
+                background: res.thumbnail,
+                name: res.title,
+            }
+            if (!res.episodesCount || res.episodesCount == 1) {
+                metaObj.type == "movie"
+            } else {
+                metaObj.type = "series"
+                metaObj.videos = videos
+            }
+            if (metaObj) MetaCache.set(meta_id, metaObj);
+            return metaObj;
         }
-        if (metaObj) MetaCache.set(meta_id, metaObj);
-        return metaObj;
+    } catch (e) {
+        console.error(e)
     }
 }
 
