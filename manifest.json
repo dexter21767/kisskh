@@ -38,7 +38,7 @@
             "name": "movie Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
             ]
         },
         {
@@ -47,7 +47,7 @@
             "name": "movie Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","Thailand","Japanese","Hong Kong","Taiwan"] }
             ]
         },
         {
@@ -56,7 +56,7 @@
             "name": "series Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
             ]
         },
         {
@@ -65,7 +65,7 @@
             "name": "series Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions", "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
             ]
         },
         {
@@ -74,7 +74,7 @@
             "name": "anime Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions","Chinese","Japanese"] }
+                { "name": "genre","isRequired": false, "options": ["Chinese","Japanese"] }
             ]
         },
         {
@@ -83,7 +83,7 @@
             "name": "anime Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": true, "options": ["All Regions","Chinese","Japanese"] }
+                { "name": "genre","isRequired": false, "options": ["Chinese","Japanese"] }
             ]
         }
     ],

@@ -118,7 +118,6 @@ async function meta(type, meta_id) {
                 description: res.description,
                 id: "kisskh:" + res.id,
                 released: res.releaseDate,
-                status: res.status,
                 poster: res.thumbnail,
                 background: res.thumbnail,
                 name: res.title,
@@ -169,6 +168,7 @@ async function search(type, id, query) {
 
 async function catalog(type, id, skip, genre) {
     try {
+        if(!genre) genre = "All Regions"
         console.log("catalog", type, id, skip, genre)
         if (skip) skip = Math.round((skip / 10) + 1);
         else skip = 1;
