@@ -52,7 +52,7 @@
         },
         {
             "type": "series",
-            "id": "type=2&status=1",
+            "id": "type=1&status=1",
             "name": "series Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
@@ -61,7 +61,7 @@
         },
         {
             "type": "series",
-            "id": "type=2&status=2",
+            "id": "type=1&status=2",
             "name": "series Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
@@ -86,7 +86,7 @@
         },
         {
             "type": "anime",
-            "id": "type=2&status=1",
+            "id": "type=3&status=1",
             "name": "anime Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
@@ -95,7 +95,7 @@
         },
         {
             "type": "anime",
-            "id": "type=2&status=2",
+            "id": "type=3&status=2",
             "name": "anime Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
