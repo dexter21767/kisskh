@@ -2,6 +2,7 @@ const axios = require('axios').default;
 
 
 const regions = { "All Regions": 0, "South Korea": 2, "Chinese": 1, "United States": 6, "Thailand": 5, "Japanese": 3, "Hong Kong": 4, "Taiwan": 7 }
+const langs = {"All Subtitles":0,"English":1,"Khmer":2,"Indonesian":3,"Malay":4,"Thai":5,"Arabic":10}
 const host = "https://kisskh.me";
 
 
@@ -136,9 +137,10 @@ async function meta(type, meta_id) {
     }
 }
 
-async function search(type, id, query) {
+async function search(type, id, query,sub) {
     try {
         let url = `${host}/api/DramaList/Search?q=${encodeURIComponent(query)}&type=${id}`
+        if(sub) url += `&sub=${langs[sub]}`
         console.log('url', url);
         let cached = SearchCache.get(url)
         if (cached) {
@@ -166,15 +168,15 @@ async function search(type, id, query) {
     }
 }
 
-async function catalog(type, id, skip, genre) {
+async function catalog(type, id, skip, genre,sub) {
     try {
         if(!genre) genre = "All Regions"
         console.log("catalog", type, id, skip, genre)
         if (skip) skip = Math.round((skip / 10) + 1);
         else skip = 1;
         res_type = type == "series" ? "1" : (type == "movie" ? "2" : (type == "anime" ? "3" : 0))
-        var url = `${host}/api/DramaList/List?&type=${res_type}&page=${skip}&${id}&country=${regions[genre]}`
-        if (type == "series" && genre == "United States") url = `${host}/api/DramaList/List?&type=4&page=${skip}&${id.split("&")[1]}&country=0`
+        var url = `${host}/api/DramaList/List?&page=${skip}&${id}&country=${regions[genre]}`
+        if(sub) url += `&sub=${langs[sub]}`
         console.log('url', url);
 
 

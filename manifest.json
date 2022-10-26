@@ -56,7 +56,7 @@
             "name": "series Ongoing",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","Thailand","Japanese","Taiwan"] }
             ]
         },
         {
@@ -65,7 +65,23 @@
             "name": "series Completed",
             "extra": [
                 {"name": "skip","isRequired": false,"options": [0,10,20,30]},
-                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","United States","Thailand","Japanese","Taiwan"] }
+                { "name": "genre","isRequired": false, "options": [ "South Korea", "Chinese","Thailand","Japanese","Taiwan"] }
+            ]
+        },
+        {
+            "type": "series",
+            "id": "type=4&status=1",
+            "name": "Hollywood Ongoing",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]}
+            ]
+        },
+        {
+            "type": "series",
+            "id": "type=4&status=2",
+            "name": "Hollywood Completed",
+            "extra": [
+                {"name": "skip","isRequired": false,"options": [0,10,20,30]}
             ]
         },
         {
@@ -117,7 +133,15 @@
         "anime"
     ],
     "behaviorHints": {
-        "configurable": false,
+        "configurable": true,
         "configurationRequired": false
-    }
+    },
+    "config":[{
+        "key":"sub",
+        "type":"select",
+        "title":"Show only content with subtitles in the selected language",
+        "default":"All Subtitles",
+        "options":["All Subtitles","English","Khmer","Indonesian","Malay","Thai","Arabic"],
+        "required":false
+    }]
 }

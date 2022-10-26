@@ -5,8 +5,6 @@ const {catalog,search,meta,stream} = require("./source");
 const manifest = require("./manifest");
 const builder = new addonBuilder(manifest)
 
-
-
 builder.defineStreamHandler((args) => {
 	console.log("addon.js streams:", args);
 	if (args.id.match(/kisskh:[^xyz]*/i)) {
@@ -20,14 +18,13 @@ builder.defineStreamHandler((args) => {
 });
 
 builder.defineCatalogHandler((args) => {
-	console.log('test');
 	console.log("addon.js Catalog:", args);
 	if (args.extra.search) {
-		return Promise.resolve(search(args.type,args.id, args.extra.search,args.extra.skip))
+		return Promise.resolve(search(args.type,args.id, args.extra.search,args.extra.skip,args.config.sub))
 			//.then((metas) => { console.log('metas', metas) });
 			.then((metas) => ({ metas: metas }));
 	} else {
-		return Promise.resolve(catalog(args.type, args.id,args.extra.skip,args.extra.genre))
+		return Promise.resolve(catalog(args.type, args.id,args.extra.skip,args.extra.genre,args.config.sub))
 			//.then((metas) => { console.log('metas', metas) });
 			.then((metas) => ({ metas: metas }));
 	}
