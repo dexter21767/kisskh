@@ -112,12 +112,12 @@ async function meta(type, meta_id) {
             const videos = []
             for (let i = 0; i < res.episodes.length; i++) {
                 ep = res.episodes[i]
-                videos.push({ id: "kisskh:" + ep.id, title: `episode ${ep.number}`, season: "1", released: res.releaseDate, episode: ep.number })
+                videos.push({ id: "kisskh:" + ep.id.toString(), title: `episode ${ep.number}`, season: "1", released: res.releaseDate, episode: ep.number.toString() })
             }
             metaObj = {
                 country: res.country,
                 description: res.description,
-                id: "kisskh:" + res.id,
+                id: "kisskh:" + res.id.toString(),
                 released: res.releaseDate,
                 poster: res.thumbnail,
                 background: res.thumbnail,
