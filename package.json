@@ -1,6 +1,6 @@
 {
 	"name": "stremio-addon-kisskh",
-	"version": "0.0.6",
+	"version": "0.0.3",
 	"description": "Asian drama over https, by Dexter21767",
 	"scripts": {
 		"start": "node server.js",

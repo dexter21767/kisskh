@@ -7,7 +7,7 @@ const builder = new addonBuilder(manifest)
 
 builder.defineStreamHandler((args) => {
 	console.log("addon.js streams:", args);
-	if (args.id.match(/kisskh:[^xyz]*/i)) {
+	if (args.id.match(/X-KH:[^xyz]*/i)) {
 		return Promise.resolve(stream(args.type, args.id))
 		.then((streams) => ({ streams: streams }));
 		//.then((streams) => { console.log('streams', streams)});
@@ -33,7 +33,7 @@ builder.defineCatalogHandler((args) => {
 builder.defineMetaHandler((args) => {
 	console.log("addon.js meta:", args);
 
-	if (args.id.match(/kisskh:[^xyz]*/i)) {
+	if (args.id.match(/X-KH:[^xyz]*/i)) {
 		//console.log('meta mycima');
 		return Promise.resolve(meta(args.type, args.id))
 			//.then((metas) => { console.log('metas', metas)});

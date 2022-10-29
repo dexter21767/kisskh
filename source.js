@@ -1,9 +1,9 @@
 const axios = require('axios').default;
-
+const suffix = "X-KH:";
 
 const regions = { "All Regions": 0, "South Korea": 2, "Chinese": 1, "United States": 6, "Thailand": 5, "Japanese": 3, "Hong Kong": 4, "Taiwan": 7 }
 const langs = {"All Subtitles":0,"English":1,"Khmer":2,"Indonesian":3,"Malay":4,"Thai":5,"Arabic":10}
-const host = "https://kisskh.me";
+const host = Buffer.from("aHR0cHM6Ly9raXNza2gubWU=", 'base64').toString('ascii');
 
 
 const NodeCache = require("node-cache");
@@ -85,7 +85,7 @@ async function stream(type, meta_id) {
         let subs = await getsubtitles(id);
 
         des = res.Video.split(".")
-        let streams = [{ url: res.Video, name: "kisskh", description: des[des.length - 2], behaviorHints: { notWebReady: true, } }]
+        let streams = [{ url: res.Video, name: "X-KH", description: des[des.length - 2], behaviorHints: { notWebReady: true, } }]
         streams.push({ externalUrl: res.ThirdParty, name: "external", description: res.ThirdParty.split('/')[2] })
         if (subs) streams[0].subtitles = subs
         console.log(streams);
@@ -112,19 +112,19 @@ async function meta(type, meta_id) {
             const videos = []
             for (let i = 0; i < res.episodes.length; i++) {
                 ep = res.episodes[i]
-                videos.push({ id: "kisskh:" + ep.id.toString(), title: `episode ${ep.number}`, season: "1", released: res.releaseDate, episode: ep.number.toString() })
+                videos.push({ id: suffix + ep.id.toString(), title: `episode ${ep.number}`, season: 1, released: res.releaseDate, episode: ep.number,available: true })
             }
-            metaObj = {
+            var metaObj = {
                 country: res.country,
                 description: res.description,
-                id: "kisskh:" + res.id.toString(),
+                id: suffix + res.id.toString(),
                 released: res.releaseDate,
                 poster: res.thumbnail,
                 background: res.thumbnail,
                 name: res.title,
             }
             if (!res.episodesCount || res.episodesCount == 1) {
-                metaObj.type == "movie"
+                metaObj.type = "movie"
             } else {
                 metaObj.type = "series"
                 metaObj.videos = videos
@@ -154,7 +154,7 @@ async function search(type, id, query,sub) {
             for (let i = 0; i < response.length; i++) {
                 let ele = response[i]
                 meta.push({
-                    id: "kisskh:" + ele.id.toString(),
+                    id: suffix + ele.id.toString(),
                     type: ele["episodesCount"] > 1 ? "series" : "movie",
                     name: ele.title,
                     poster: ele.thumbnail
@@ -174,7 +174,6 @@ async function catalog(type, id, skip, genre,sub) {
         console.log("catalog", type, id, skip, genre)
         if (skip) skip = Math.round((skip / 10) + 1);
         else skip = 1;
-        res_type = type == "series" ? "1" : (type == "movie" ? "2" : (type == "anime" ? "3" : 0))
         var url = `${host}/api/DramaList/List?&page=${skip}&${id}&country=${regions[genre]}`
         if(sub) url += `&sub=${langs[sub]}`
         console.log('url', url);
@@ -193,7 +192,7 @@ async function catalog(type, id, skip, genre,sub) {
             for (let i = 0; i < response.length; i++) {
                 let ele = response[i]
                 meta.push({
-                    id: "kisskh:" + ele.id.toString(),
+                    id: suffix + ele.id.toString(),
                     type: ele["episodesCount"] > 1 ? "series" : "movie",
                     name: ele.title,
                     poster: ele.thumbnail
