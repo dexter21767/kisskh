@@ -171,9 +171,9 @@ async function search(type, id, query,sub) {
 async function catalog(type, id, skip, genre,sub) {
     try {
         if(!genre) genre = "All Regions"
-        console.log("catalog", type, id, skip, genre)
         if (skip) skip = Math.round((skip / 10) + 1);
         else skip = 1;
+        console.log("catalog", type, id, skip, genre)
         var url = `${host}/api/DramaList/List?&page=${skip}&${id}&country=${regions[genre]}`
         if(sub) url += `&sub=${langs[sub]}`
         console.log('url', url);
