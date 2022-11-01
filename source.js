@@ -125,6 +125,7 @@ async function meta(type, meta_id) {
             }
             if (!res.episodesCount || res.episodesCount == 1) {
                 metaObj.type = "movie"
+                metaObj.id = videos[0].id 
             } else {
                 metaObj.type = "series"
                 metaObj.videos = videos
