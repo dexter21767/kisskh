@@ -112,13 +112,13 @@ async function meta(type, meta_id) {
             const videos = []
             for (let i = 0; i < res.episodes.length; i++) {
                 ep = res.episodes[i]
-                videos.push({ id: suffix + ep.id.toString(), title: `episode ${ep.number}`, season: 1, released: res.releaseDate, episode: ep.number,available: true })
+                videos.push({ id: suffix + ep.id.toString(), title: `episode ${ep.number}`, season: 1, released: new Date(res.releaseDate), episode: ep.number,available: true })
             }
             var metaObj = {
                 country: res.country,
                 description: res.description,
                 id: suffix + res.id.toString(),
-                released: res.releaseDate,
+                released: new Date(res.releaseDate),
                 poster: res.thumbnail,
                 background: res.thumbnail,
                 name: res.title,
