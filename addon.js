@@ -20,11 +20,11 @@ builder.defineStreamHandler((args) => {
 builder.defineCatalogHandler((args) => {
 	console.log("addon.js Catalog:", args);
 	if (args.extra.search) {
-		return Promise.resolve(search(args.type,args.id, args.extra.search,args.extra.skip,args.config.sub))
+		return Promise.resolve(search(args.id, args.extra.search,args.extra.skip,args.config.sub))
 			//.then((metas) => { console.log('metas', metas) });
 			.then((metas) => ({ metas: metas }));
 	} else {
-		return Promise.resolve(catalog(args.type, args.id,args.extra.skip,args.extra.genre,args.config.sub))
+		return Promise.resolve(catalog(args.id,args.extra.skip,args.extra.genre,args.config.sub))
 			//.then((metas) => { console.log('metas', metas) });
 			.then((metas) => ({ metas: metas }));
 	}

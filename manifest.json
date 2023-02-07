@@ -9,19 +9,19 @@
     "catalogs": [
         
         {
-            "type": "series",
+            "type": "X-KH",
             "id": "1",
             "name": "series",
             "extra": [ {"name": "search", "isRequired": true} ]
         },
         {
-            "type": "movie",
+            "type": "X-KH",
             "id": "2",
             "name": "movie",
             "extra": [ {"name": "search", "isRequired": true} ]
         },
         {
-            "type": "anime",
+            "type": "X-KH",
             "id": "3",
             "name": "anime",
             "extra": [ {"name": "search", "isRequired": true} ]

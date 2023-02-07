@@ -138,7 +138,7 @@ async function meta(type, meta_id) {
     }
 }
 
-async function search(type, id, query,sub) {
+async function search(id, query,sub) {
     try {
         let url = `${host}/api/DramaList/Search?q=${encodeURIComponent(query)}&type=${id}`
         if(sub) url += `&sub=${langs[sub]}`
@@ -169,12 +169,12 @@ async function search(type, id, query,sub) {
     }
 }
 
-async function catalog(type, id, skip, genre,sub) {
+async function catalog(id, skip, genre,sub) {
     try {
         if(!genre) genre = "All Regions"
         if (skip) skip = Math.round((skip / 10) + 1);
         else skip = 1;
-        console.log("catalog", type, id, skip, genre)
+        console.log("catalog", id, skip, genre)
         var url = `${host}/api/DramaList/List?&page=${skip}&${id}&country=${regions[genre]}`
         if(sub) url += `&sub=${langs[sub]}`
         console.log('url', url);
